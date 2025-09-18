@@ -1,0 +1,87 @@
+﻿<Window x:Class="CalculatorWPF.Views.CalculatorView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CalculatorWPF"
+        xmlns:viewModels="clr-namespace:CalculatorWPF.ViewModels"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance viewModels:CalculatorViewModel}"
+        Title="電卓" Height="500" Width="450" MinHeight="500" MinWidth="450"
+        PreviewKeyDown="Window_PreviewKeyDown"
+        PreviewTextInput="Window_PreviewTextInput">
+    <Grid Margin="10">
+        <Grid.Resources>
+            <Style TargetType="Button">
+                <Setter Property="Margin" Value="2"/>
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="Background" Value="#f0f0f0"/>
+                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="BorderBrush" Value="#cccccc"/>
+            </Style>
+            <Style x:Key="OperatorButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                <Setter Property="Background" Value="#e0e0e0"/>
+            </Style>
+            <Style x:Key="EqualsButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                <Setter Property="Background" Value="#add8e6"/>
+            </Style>
+        </Grid.Resources>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBox x:Name="Display" Grid.Row="0" Text="{Binding DisplayText, Mode=OneWay}" FontSize="36" TextAlignment="Right" IsReadOnly="True" BorderThickness="1" Padding="10" Margin="0,0,0,10"/>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Row 0 -->
+            <Button Grid.Row="0" Grid.Column="0" Content="M+" Style="{StaticResource OperatorButton}" Command="{Binding MemoryAddCommand}"/>
+            <Button Grid.Row="0" Grid.Column="1" Content="M-" Style="{StaticResource OperatorButton}" Command="{Binding MemorySubtractCommand}"/>
+            <Button Grid.Row="0" Grid.Column="2" Content="MRC" Style="{StaticResource OperatorButton}" Command="{Binding MemoryRecallClearCommand}"/>
+            
+            <!-- Row 1 -->
+            <Button Grid.Row="1" Grid.Column="0" Content="7" Command="{Binding AddInputCommand}" CommandParameter="7"/>
+            <Button Grid.Row="1" Grid.Column="1" Content="8" Command="{Binding AddInputCommand}" CommandParameter="8"/>
+            <Button Grid.Row="1" Grid.Column="2" Content="9" Command="{Binding AddInputCommand}" CommandParameter="9"/>
+            <Button Grid.Row="1" Grid.Column="3" Content="C" Style="{StaticResource OperatorButton}" Command="{Binding ClearEntryCommand}"/>
+            <Button Grid.Row="1" Grid.Column="4" Content="AC" Style="{StaticResource OperatorButton}" Command="{Binding ClearAllCommand}"/>
+
+            <!-- Row 2 -->
+            <Button Grid.Row="2" Grid.Column="0" Content="4" Command="{Binding AddInputCommand}" CommandParameter="4"/>
+            <Button Grid.Row="2" Grid.Column="1" Content="5" Command="{Binding AddInputCommand}" CommandParameter="5"/>
+            <Button Grid.Row="2" Grid.Column="2" Content="6" Command="{Binding AddInputCommand}" CommandParameter="6"/>
+            <Button Grid.Row="2" Grid.Column="3" Content="×" Style="{StaticResource OperatorButton}" Command="{Binding OperatorCommand}" CommandParameter="×"/>
+            <Button Grid.Row="2" Grid.Column="4" Content="÷" Style="{StaticResource OperatorButton}" Command="{Binding OperatorCommand}" CommandParameter="÷"/>
+
+            <!-- Row 3 -->
+            <Button Grid.Row="3" Grid.Column="0" Content="1" Command="{Binding AddInputCommand}" CommandParameter="1"/>
+            <Button Grid.Row="3" Grid.Column="1" Content="2" Command="{Binding AddInputCommand}" CommandParameter="2"/>
+            <Button Grid.Row="3" Grid.Column="2" Content="3" Command="{Binding AddInputCommand}" CommandParameter="3"/>
+            <Button Grid.Row="3" Grid.Column="3" Grid.RowSpan="2" Content="+" Style="{StaticResource OperatorButton}" Command="{Binding OperatorCommand}" CommandParameter="+"/>
+            <Button Grid.Row="3" Grid.Column="4" Content="-" Style="{StaticResource OperatorButton}" Command="{Binding OperatorCommand}" CommandParameter="-"/>
+
+            <!-- Row 4 -->
+            <Button Grid.Row="4" Grid.Column="0" Content="0" Command="{Binding AddInputCommand}" CommandParameter="0"/>
+            <Button Grid.Row="4" Grid.Column="1" Content="00" Command="{Binding AddInputCommand}" CommandParameter="00"/>
+            <Button Grid.Row="4" Grid.Column="2" Content="." Command="{Binding AddInputCommand}" CommandParameter="."/>
+            <Button Grid.Row="4" Grid.Column="4" Content="=" Style="{StaticResource EqualsButton}" Command="{Binding EqualsCommand}"/>
+        </Grid>
+    </Grid>
+</Window>
